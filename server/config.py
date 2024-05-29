@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_sqlalchemy import flask_sqlalchemy # used to store data in the db.
+from flask_sqlalchemy import SQLAlchemy # used to store data in the db.
 from flask_cors import CORS # used to send request to the backend from a different URL(frontend) for security.
 
 app = Flask(__name__) # initializes flask application.
