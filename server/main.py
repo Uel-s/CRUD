@@ -13,7 +13,7 @@ def get_contacts():
 # Convert each contact object in the 'contacts' list to a JSON-serializable dictionary
 # using the 'to_json' method, and store the resulting list of dictionaries in 'json_contacts'.
     json_contacts = list(map(lambda x: x.to_json(), contacts))
-    return (jsonify({"contacts": json_contacts})), 200 # data is returned in json format
+    return (jsonify({"contacts": json_contacts })), 200 # data is returned in json format
 
 # Decorator for contact using the post(create)method.
 
@@ -40,7 +40,7 @@ def create_contact():
 
     # When user is created.
 
-    return jsonify({"message": "User Created!"}), 201
+    return jsonify({"message": "User Created! ✅"}), 201
 
 # To update Contact.
 
@@ -79,7 +79,23 @@ def update_contact(user_id):
 
 # Handling Delete request
 
-@app.route("/delete_contact/<int:user_id>, methods = ["DELETE"])
+@app.route("/delete_contact/<int:user_id>", methods = ["DELETE"])
+
+# A function to handle the delete request.
+def delete_contact(user_id):
+
+# Retrieve the database for a Contact object with the primary key 'user_id'.
+
+    contact = Contact.query.get(user_id)
+
+    if not contact:
+        return ({"message": "Contact not found"}), 404
+
+    db.session.delete(contact) 
+    db.session.commit()
+
+    return ({"message":"Contact Deleted 🗑"})   
+
 
               
 
