@@ -11,13 +11,17 @@ class Contact(db.Model):
     created_at = db.Column(db.DateTime,nullable = False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime,nullable = False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-
 #  A function to convert our db info to  python dictionary and return it as json data which can be passed to an Api.
 
-def to_json(self):
-    return {
+    def to_json(self):
+         return {
         "id": self.id,
         "firstName": self.first_name,  # camelCase for js(firstName) and snake_case for python(first_name)
         "lastName": self.last_name,
         "email": self.email
+   
     }
+
+
+
+
