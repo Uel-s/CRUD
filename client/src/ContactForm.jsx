@@ -1,70 +1,76 @@
 import { useState } from "react";
 
-const ContactForm = ({}) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+// if the contact info isn't being updated maintain the contact info and if no contact then add the contact info.
+const ContactForm = ({ existingContact = {}, updateCallback }) => {
+  const [firstName, setFirstName] = useState(existingContact.firstName || "");
+  const [lastName, setLastName] = useState(existingContact.lastName || "");
+  const [email, setEmail] = useState(existingContact.email || "");
 
-  const onSubmit = async(e) => {
+  const updating = Object.entries(existingContact).length !== 0; // allow for the adding of one contact info ie the first name and the other fields still being updated.
 
-    e.preventDefault () // prevent refreshing of the page 
-     
+  const onSubmit = async (e) => {
+    e.preventDefault(); // prevent refreshing of the page
+
     const data = {
       firstName,
       lastName,
-      email
-    }
+      email,
+    };
 
-    const url = "http://127.0.0.1:5000/create_contact"
+    const url =
+      "http://127.0.0.1:5000/" +
+      (updating ? `update_contact/${existingContact.id}` : "create_contact");
     const options = {
-      method: "POST",
+      method: updating ? "PATCH" : "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
-    }
+      body: JSON.stringify(data),
+    };
 
-    const response = await fetch(url, options)
+    const response = await fetch(url, options);
     if (response.status !== 201 && response.status !== 200) {
-      const data = await response.json()
-      alert(data.message)
-    } else{
-      //success
+      const data = await response.json();
+      alert(data.message);
+    } else {
+      updateCallback();
     }
-
-  }
+  };
 
   return (
     <form onSubmit={onSubmit}>
-      <div>
-        <label htmlFor="firstName">First Name</label>
-        <input
-          type="text"
-          id="firstName"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
+      <div className="form-row">
+        <div className="form-group">
+          <label htmlFor="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
       </div>
-      <div>
-        <label htmlFor="lastName">Last Name</label>
-        <input
-          type="text"
-          id="lastName"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="email">First Name</label>
-        <input
-          type="text"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <button type= "submit">Create Contact</button>
+      <button type="submit">OK</button>
     </form>
   );
 };
- export default ContactForm;
+
+export default ContactForm;
