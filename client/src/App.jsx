@@ -42,13 +42,22 @@ if (!isModalOpen) setIsModalOpened(true)
 
   return (
     <>
-      <ContactList contacts={contact} updateContact={openEditModal} updateCallback={onUpdate}/>
+      <ContactList
+        contacts={contact}
+        updateContact={openEditModal}
+        updateCallback={onUpdate}
+      />
       <button onClick={openCreateModal}>New Contact</button>
       {isModalOpen && (
         <div className="modal">
           <div className="modal-con">
-            <span className="close" onClick={closeModal}>&times;</span>   
-            <ContactForm existingContact={currentContact} updateCallback={onUpdate} />
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            <ContactForm
+              existingContact={currentContact}
+              updateCallback={onUpdate}
+            />
           </div>
         </div>
       )}
