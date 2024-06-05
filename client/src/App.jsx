@@ -40,7 +40,9 @@ function App() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+
+    <div className="background-image flex items-center justify-center min-h-screen bg-gray-100">
+
       <div className="flex flex-col border border-red-300 py-6 px-4 m-2 w-full max-w-3xl bg-white shadow-md">
         <ContactList
           contacts={contact}
