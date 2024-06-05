@@ -1,15 +1,14 @@
 import { useState } from "react";
 
-// if the contact info isn't being updated maintain the contact info and if no contact then add the contact info.
 const ContactForm = ({ existingContact = {}, updateCallback }) => {
   const [firstName, setFirstName] = useState(existingContact.firstName || "");
   const [lastName, setLastName] = useState(existingContact.lastName || "");
   const [email, setEmail] = useState(existingContact.email || "");
 
-  const updating = Object.entries(existingContact).length !== 0; // allow for the adding of one contact info ie the first name and the other fields still being updated.
+  const updating = Object.entries(existingContact).length !== 0;
 
   const onSubmit = async (e) => {
-    e.preventDefault(); // prevent refreshing of the page
+    e.preventDefault();
 
     const data = {
       firstName,
@@ -38,37 +37,57 @@ const ContactForm = ({ existingContact = {}, updateCallback }) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="form-row">
-        <div className="form-group">
-          <label htmlFor="firstName">First Name</label>
+    <form onSubmit={onSubmit} className="space-y-4">
+      <div className="form-row flex flex-col space-y-4">
+        <div className="form-group flex flex-col">
+          <label
+            htmlFor="firstName"
+            className="text-sm font-medium text-gray-700"
+          >
+            First Name
+          </label>
           <input
             type="text"
             id="firstName"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="lastName">Last Name</label>
+        <div className="form-group flex flex-col">
+          <label
+            htmlFor="lastName"
+            className="text-sm font-medium text-gray-700"
+          >
+            Last Name
+          </label>
           <input
             type="text"
             id="lastName"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
+        <div className="form-group flex flex-col">
+          <label htmlFor="email" className="text-sm font-medium text-gray-700">
+            Email
+          </label>
           <input
             type="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
         </div>
       </div>
-      <button type="submit">OK</button>
+      <button
+        type="submit"
+        className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700"
+      >
+        OK
+      </button>
     </form>
   );
 };

@@ -22,26 +22,36 @@ const ContactList = ({ contacts, updateContact, updateCallback }) => {
   };
 
   return (
-    <div>
-      <h2>Contacts</h2>
-      <table>
-        <thead>
+    <div className="p-4">
+      <h1 className="text-3xl font-serif mb-6 text-center">Contacts</h1>
+      <table className="min-w-full bg-white border border-gray-300">
+        <thead className="bg-gray-50">
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Actions</th>
+            <th className="py-2 px-4 border-b border-gray-200">First Name</th>
+            <th className="py-2 px-4 border-b border-gray-200">Last Name</th>
+            <th className="py-2 px-4 border-b border-gray-200">Email</th>
+            <th className="py-2 px-4 border-b border-gray-200">Actions</th>
           </tr>
         </thead>
         <tbody>
           {contacts.map((contact) => (
-            <tr key={contact.id}>
-              <td>{contact.firstName}</td>
-              <td>{contact.lastName}</td>
-              <td>{contact.email}</td>
-              <td>
-                <button onClick={() => updateContact(contact)}>Edit</button>
-                <button onClick={() => onDelete(contact.id)}>Delete</button>
+            <tr key={contact.id} className="hover:bg-gray-100">
+              <td className="py-2 px-4 border-b border-gray-200">{contact.firstName}</td>
+              <td className="py-2 px-4 border-b border-gray-200">{contact.lastName}</td>
+              <td className="py-2 px-4 border-b border-gray-200">{contact.email}</td>
+              <td className="py-2 px-4 border-b border-gray-200 space-x-2">
+                <button
+                  onClick={() => updateContact(contact)}
+                  className="px-3 py-1 bg-blue-400 text-white rounded hover:bg-blue-800"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => onDelete(contact.id)}
+                  className="px-3 py-1 bg-red-700 text-white rounded hover:bg-red-600"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

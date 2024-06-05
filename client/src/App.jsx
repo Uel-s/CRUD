@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import ContactList from "./ContactList";
 import ContactForm from "./ContactForm";
 import "./App.css";
-import "./index.css"
+import "./index.css";
 
 function App() {
   const [contact, setContact] = useState([]);
-  const [isModalOpen, setIsModalOpened] = useState(false)
+  const [isModalOpen, setIsModalOpened] = useState(false);
   const [currentContact, setCurrentContact] = useState({});
 
   useEffect(() => {
@@ -14,54 +14,63 @@ function App() {
   }, []);
 
   const fetchContacts = async () => {
-    const response = await fetch("http://127.0.0.1:5000/contact"); // fetch contacts from server's url.
+    const response = await fetch("http://127.0.0.1:5000/contact");
     const data = await response.json();
-    setContact(data.contacts); // contacts from the get request from server.
-  }
- 
+    setContact(data.contacts);
+  };
+
   const closeModal = () => {
-    setIsModalOpened(false)
-    setCurrentContact({})
-  }
+    setIsModalOpened(false);
+    setCurrentContact({});
+  };
 
-  const openCreateModal = () =>{
+  const openCreateModal = () => {
+    if (!isModalOpen) setIsModalOpened(true);
+  };
 
-if (!isModalOpen) setIsModalOpened(true)
-  }
-  const openEditModal = (contact) =>{
-
-    if (isModalOpen) return 
-    setCurrentContact(contact)
-    setIsModalOpened(true)
-  }
+  const openEditModal = (contact) => {
+    if (isModalOpen) return;
+    setCurrentContact(contact);
+    setIsModalOpened(true);
+  };
 
   const onUpdate = () => {
-    closeModal()
-    fetchContacts()
-  }
+    closeModal();
+    fetchContacts();
+  };
 
   return (
-    <>
-      <ContactList
-        contacts={contact}
-        updateContact={openEditModal}
-        updateCallback={onUpdate}
-      />
-      <button onClick={openCreateModal}>New Contact</button>
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-con">
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
-            <ContactForm
-              existingContact={currentContact}
-              updateCallback={onUpdate}
-            />
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex flex-col border border-red-300 py-6 px-4 m-2 w-full max-w-3xl bg-white shadow-md">
+        <ContactList
+          contacts={contact}
+          updateContact={openEditModal}
+          updateCallback={onUpdate}
+        />
+        <button
+          className="p-2 bg-blue-900 text-white rounded-md mt-4 w-36 mx-auto"
+          onClick={openCreateModal}
+        >
+          New Contact
+        </button>
+        {isModalOpen && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-md shadow-md relative">
+              <span
+                className="absolute top-2 right-2 cursor-pointer text-xl"
+                onClick={closeModal}
+              >
+                &times;
+              </span>
+              <ContactForm
+                existingContact={currentContact}
+                updateCallback={onUpdate}
+              />
+            </div>
           </div>
-        </div>
-      )}
-    </>
+        )}
+      </div>
+    </div>
   );
 }
 
