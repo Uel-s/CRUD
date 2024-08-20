@@ -8,6 +8,7 @@ flask = "*"
 flask-sqlalchemy = "*"
 flask-cors = "*"
 vercel = "*"
+gunicorn = "*"
 
 [dev-packages]
 
