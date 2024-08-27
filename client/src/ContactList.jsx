@@ -7,7 +7,7 @@ const ContactList = ({ contacts, updateContact, updateCallback }) => {
         method: "DELETE",
       };
       const response = await fetch(
-        `http://127.0.0.1:5000/delete_contact/${id}`,
+        `https://uels.pythonanywhere.com/delete_contact/${id}`,
         options
       );
       if (response.status === 200) {
@@ -36,9 +36,15 @@ const ContactList = ({ contacts, updateContact, updateCallback }) => {
         <tbody>
           {contacts.map((contact) => (
             <tr key={contact.id} className="hover:bg-gray-100">
-              <td className="py-2 px-4 border-b border-gray-200">{contact.firstName}</td>
-              <td className="py-2 px-4 border-b border-gray-200">{contact.lastName}</td>
-              <td className="py-2 px-4 border-b border-gray-200">{contact.email}</td>
+              <td className="py-2 px-4 border-b border-gray-200">
+                {contact.firstName}
+              </td>
+              <td className="py-2 px-4 border-b border-gray-200">
+                {contact.lastName}
+              </td>
+              <td className="py-2 px-4 border-b border-gray-200">
+                {contact.email}
+              </td>
               <td className="py-2 px-4 border-b border-gray-200 space-x-2">
                 <button
                   onClick={() => updateContact(contact)}

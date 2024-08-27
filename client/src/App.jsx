@@ -14,7 +14,7 @@ function App() {
   }, []);
 
   const fetchContacts = async () => {
-    const response = await fetch("http://127.0.0.1:5000/contact");
+    const response = await fetch("https://uels.pythonanywhere.com/contact");
     const data = await response.json();
     setContact(data.contacts);
   };
@@ -40,9 +40,7 @@ function App() {
   };
 
   return (
-
     <div className="background-image flex items-center justify-center min-h-screen bg-gray-100">
-
       <div className="flex flex-col border border-red-300 py-6 px-4 m-2 w-full max-w-3xl bg-white shadow-md">
         <ContactList
           contacts={contact}
