@@ -2,12 +2,19 @@ from flask import request, jsonify
 from config import app, db
 from models import Contact
 
+
+# Test
+@app.route("/", method= ["Get"])
+def get_hello():
+    return "<h1>hello</h1>"
+
 # Decorator for contact using the GET method.
 @app.route("/contact", methods=["GET"])
 def get_contacts():
     contacts = Contact.query.all()  # Get all contacts from the Contact db.
     json_contacts = list(map(lambda x: x.to_json(), contacts))
     return jsonify({"contacts": json_contacts}), 200  # Data is returned in JSON format
+
 
 # Decorator for contact using the POST (create) method.
 @app.route("/create_contact", methods=["POST"])
