@@ -68,4 +68,4 @@ def delete_contact(user_id):
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()  # Create all tables defined in SQLAlchemy models if they don't exist already.
-    app.run(port = 4545,debug=True)  # Run the Flask application with debugging enabled for easier development.
+    app.run(port=4545,debug=True)  # Run the Flask application with debugging enabled for easier development.
