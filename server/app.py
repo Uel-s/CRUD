@@ -4,7 +4,7 @@ from models import Contact
 
 
 # Test
-@app.route("/", method= ["Get"])
+@app.route("/", methods=["GET"])
 def get_hello():
     return "<h1>hello</h1>"
 
